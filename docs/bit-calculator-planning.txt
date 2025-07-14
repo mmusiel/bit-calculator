@@ -14,7 +14,7 @@ Requirements:
 
 Tools, Targets:
 OS: Linux, macOS
-Tools: <cstdint> (fixed-width integers), <bitset> (store and manipulate binary data)
+Tools: <cstdint> (fixed-width integers)
 
 Breaking problem down:
 >> Start calculator loop
