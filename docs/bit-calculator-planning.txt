@@ -1,0 +1,102 @@
+Goal:
+Allow the user to perform bit manipulation operations on positive numbers using the command-line interface in a 32-bit range.
+
+Requirements:
+- provide menu to user for calculator operation choices
+	> Bitwise operations: AND, OR, XOR, NOT, or Left/Right Shifts
+	> Conversion: Decimal, Binary, Hexadecimal
+- take input from the user
+- perform the requested calculation
+- print out the result of the calculation 
+- program continues until the user chooses to exit the program
+- comments for each function
+- input validation for all operations
+
+Tools, Targets:
+OS: Linux, macOS
+Tools: <cstdint> (fixed-width integers), <bitset> (store and manipulate binary data)
+
+Breaking problem down:
+>> Start calculator loop
+
+- Get menu choice from user
+	- Display menu
+		1) Bitwise operation (AND, OR, XOR, NOT, or Left/Right Shifts)
+        2) Number conversion (Decimal, Binary, Hexadecimal)
+        3) Exit
+	- Get menu choice from user
+		- integer value (ex: 1, 2, or 3)
+
+1) Perform bitwise operation
+	- Get first number to perform operation on
+		> positive numbers only
+	
+	- Get operation choice from user
+		> AND (&), OR (|), XOR (^), NOT (~), left shift (<<), or right Shifts (>>)
+		
+	- Get second number to perform operation on (unless NOT is chosen)
+		
+	- Perform operation
+		> AND (&)
+			result = operand1 & operand2;
+		> OR (|)
+			result = operand1 | operand2;
+		> XOR (^)
+			result = operand1 ^ operand2;
+		> NOT (~)
+			result = ~operand;
+		> Left Shift (<<)
+			result = operand << numberOfBits;
+		> Right Shift (>>)
+			result = operand >> numberOfBits;
+			
+	- Print calculation results to console in sentence form
+		> ex: "The result of 5 AND 3 is 1
+				binary: 0001"
+		> ex: "The result of 5 left shift 1 is 10
+				binary: 1010"
+		> ex: "The result of NOT 5 is 4294967290
+				binary:	1111 1111 1111 1111
+						1111 1111 1111 1010"
+
+2) Perform number system conversion
+	- Display conversion choices
+		Convert from:
+			1) Decimal
+			2) Binary
+			3) Hexadecimal
+		Convert #Make this smart, only show relevant choices. From Decimal to Binary or Hex only.
+			1) Decimal
+			2) Binary
+			3) Hexadecimal
+	- Get conversion choice from user
+	- Get number to convert
+	- Perform conversion
+		> decimal to binary
+		> decimal to hex
+		> binary to decimal
+		> binary to hex
+		> hex to decimal
+		> hex to binary
+	- Print result
+		> ex: "100 decimal is 0110 0100 in binary."
+		> ex: "9EA2 hexadecimal is 40610 in decimal."
+
+Sequence of events:
+Display calculator menu
+Get choice of operation or conversion
+	> operation
+		get first positive number
+		get operation
+		get second number (if not NOT op)
+		perform operation on number(s)
+		print result
+	> conversion
+		get convert from
+		get convert to
+		get number
+		perform conversion
+		print result
+Ask to continue with another operation
+	> Y: continue calculator loop
+	> N: end program
