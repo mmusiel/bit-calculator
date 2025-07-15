@@ -1,7 +1,7 @@
 #include "operations.h"
 #include <iostream>
 
-void printOp()
+void printOperations()
 {
 	std::cout << "Hello from operations!\n";
 }

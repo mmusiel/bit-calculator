@@ -2,7 +2,7 @@
 #include "CinErrorHandling.h"
 #include <iostream>
 
-int getInt(int min, int max, std::string_view prompt)
+int getMenuChoice(int min, int max, std::string_view prompt)
 {
 	while(true)
 	{
@@ -14,7 +14,7 @@ int getInt(int min, int max, std::string_view prompt)
 
 		if(CinError::clearUnextractedInput() || CinError::clearFailedExtraction() || outOfBounds)
 		{
-			std::cout << "Invalid entry. Try again.\n";
+			std::cout << "Invalid menu choice. Try again.\n";
 			continue;
 		}
 

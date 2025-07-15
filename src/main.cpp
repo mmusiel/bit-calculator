@@ -1,26 +1,39 @@
-#include "my-types.h"
 #include "operations.h"
 #include "conversions.h"
 #include "io.h"
 #include <iostream>
 
+// Presents calculator menu, gets user choice, and calls calculator functions
 int main()
 {
+	constexpr int min_MenuOption{ 1 };
+	constexpr int max_ExitOption{ 3 };
+
+	int menuChoice{};
+
 	do
 	{
 		std::cout << "1) Bitwise operation (AND, OR, XOR, NOT, or Left/Right Shifts)\n";
 		std::cout << "2) Number conversion (Decimal, Binary, Hexadecimal)\n";
 		std::cout << "3) Exit\n";
 
-		constexpr int minMenuOption{ 1 };
-		constexpr int maxMenuOption{ 3 };
+		menuChoice = getMenuChoice(min_MenuOption, max_ExitOption, "Enter menu choice: ");
 
-		const int menuChoice{ getInt(minMenuOption, maxMenuOption, "Enter menu choice: ") };
+		switch(menuChoice)
+		{
+		// Bitwise Operation
+		case 1:
+			printOperations();
+			break;
 
-		std::cout << menuChoice << '\n';
-		
+		// Number conversion
+		case 2:
+			printConversions();
+			break;
+		}
+		std::cout << '\n';	// Padding for next loop
 	}
-	while(false);
+	while(menuChoice != max_ExitOption);
 
 	std::cout << "Exiting calculator.\n";
 

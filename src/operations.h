@@ -1,6 +1,6 @@
 #ifndef OPERATIONS_H
 #define OPERATIONS_H
 
-void printOp();
+void printOperations();
 
 #endif

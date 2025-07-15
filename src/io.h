@@ -3,6 +3,6 @@
 
 #include <string_view>
 
-int getInt(int min, int max, std::string_view prompt);
+int getMenuChoice(int min, int max, std::string_view prompt);
 
 #endif
