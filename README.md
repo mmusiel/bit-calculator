@@ -8,13 +8,13 @@ A C++ command-line tool for performing bitwise operations and visualizing binary
 - Left and right shift operations
 
 ## Building the Project
-While in "manual-version" or "stdlb-version" directory enter "make run" into command line
+[Instructions will be added as development progresses]
 
 ## Usage
 [Usage examples will be added with each feature]
 
 ## Development Status
-Building out "stdlib-version" first using bitset standard library
+Project early stages, building out structure.
 
 ## License
 [MIT License details to be added]
