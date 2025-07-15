@@ -17,9 +17,9 @@ OS: Linux, macOS
 Tools: <cstdint> (fixed-width integers)
 
 Breaking problem down:
->> Start calculator loop
+✅>> Start calculator loop
 
-- Get menu choice from user
+✅- Get menu choice from user
 	- Display menu
 		1) Bitwise operation (AND, OR, XOR, NOT, or Left/Right Shifts)
         2) Number conversion (Decimal, Binary, Hexadecimal)

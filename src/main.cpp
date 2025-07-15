@@ -1,4 +1,5 @@
-#include "utils/operations.h"
+#include "my-types.h"
+#include "utils/operation.h"
 #include "utils/conversions.h"
 #include "utils/io.h"
 #include <iostream>
@@ -23,13 +24,21 @@ int main()
 		{
 		// Bitwise Operation
 		case 1:
-			printOperations();
+		{
+			const BitType num1{ getNumberInput() };
+			const BitType num2{ getNumberInput() };
+			
+			std::cout << "num1: " << num1 << '\n';
+			std::cout << "num2: " << num2 << '\n';
 			break;
+		}
 
 		// Number conversion
 		case 2:
+		{
 			printConversions();
 			break;
+		}
 		}
 		std::cout << '\n';	// Padding for next loop
 	}
