@@ -1,18 +1,21 @@
-#include "calculator.h"
-#include "utils.h"
+#include "my-types.h"
+#include "operations.h"
+#include "conversions.h"
 #include "io.h"
-#include <cstdint>
 #include <iostream>
-
-using BitType = uint32_t;	// Type alias, can change Bit size later
 
 int main()
 {
-	std::cout << "Hello from Main!\n";
+	do
+	{
+		std::cout << "1) Bitwise operation (AND, OR, XOR, NOT, or Left/Right Shifts)\n";
+		std::cout << "2) Number conversion (Decimal, Binary, Hexadecimal)\n";
+		std::cout << "3) Exit\n";
+		
+	}
+	while(false);
 
-	printCalc();
-	printIo();
-	printUtils();
+	std::cout << "Exiting calculator.\n";
 
 	return 0;
 }
