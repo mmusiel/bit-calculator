@@ -1,6 +1,6 @@
-#include "operations.h"
-#include "conversions.h"
-#include "io.h"
+#include "utils/operations.h"
+#include "utils/conversions.h"
+#include "utils/io.h"
 #include <iostream>
 
 // Presents calculator menu, gets user choice, and calls calculator functions

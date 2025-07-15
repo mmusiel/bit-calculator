@@ -1,5 +1,5 @@
 #include "io.h"
-#include "CinErrorHandling.h"
+#include "../CinErrorHandling.h"
 #include <iostream>
 
 int getMenuChoice(int min, int max, std::string_view prompt)
