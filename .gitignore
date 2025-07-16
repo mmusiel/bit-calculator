@@ -1,4 +1,8 @@
 
-### C++ ###
+# C++
 *.o
 *.bin
+
+# VS Code
+.vscode
+main

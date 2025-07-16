@@ -26,6 +26,34 @@ int getMenuChoice(int min, int max, std::string_view prompt)
 	}
 }
 
+BitType validateHex(std::string_view input) {
+    // Validate hex digits after 0x
+    // Check range for 32-bit
+    // Return uint32_t
+
+	std::cout << "Hex: " << input << '\n';
+    return 0;
+}
+
+BitType validateBinary(std::string_view input) {
+    // Validate binary digits after 0b
+    // Check range for 32-bit (max 32 digits)
+    // Return uint32_t
+
+	std::cout << "Binary: " << input << '\n';
+    return 0;
+}
+
+BitType validateDecimal(std::string_view input) {
+    // Validate decimal digits only
+    // Check range for 32-bit
+    // Return uint32_t
+
+	std::cout << "Decimal: " << input << '\n';
+    return 0;
+}
+
+// Get string input, determine number type, call appropriate function to validate input
 BitType getNumberInput()
 {
 	while(true)
@@ -34,14 +62,16 @@ BitType getNumberInput()
 		std::string input;
 		std::getline(std::cin >> std::ws, input);
 
-		bool failedExtraction{ CinError::clearFailedExtraction() }; // testing if clearFailedExtraction() is needed
+		// Hexadecimal
+		if (input.substr(0,2) == "0x" || input.substr(0,2) == "0X")
+			return validateHex(input);
 
-		if (failedExtraction || input.empty())
-		{
-			std::cout << "Invalid input. ";
-			continue;
-		}
+		// Binary
+		else if (input.substr(0,2) == "0b" || input.substr(0,2) == "0B")
+			return validateBinary(input);
 
-		return 0;
+		// Decimal
+		else
+			return validateDecimal(input);
 	}
 }
