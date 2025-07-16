@@ -1,6 +1,5 @@
 #include "io.h"
 #include "../CinErrorHandling.h"
-#include <string>
 #include <iostream>
 #include <limits> // Required for std::numeric_limits
 
@@ -60,13 +59,13 @@ BitType validateDecimal(std::string_view input) {
 }
 
 // Get string input, determine number base, call appropriate function to validate input
-BitType getNumberInput()
+BitType getNumberInput(const std::string& prompt)
 {
 	while(true)
 	{
 		try
 		{
-			std::cout << "Enter positive decimal, hex (prefix 0x), or binary (prefix 0b): ";
+			std::cout << prompt;
 			std::string input;
 			std::getline(std::cin >> std::ws, input);
 
