@@ -26,17 +26,17 @@ int main()
 		case 1:
 		{
 			const BitType num1{ getNumberInput() };
-			const BitType num2{ getNumberInput() };
+			// const BitType num2{ getNumberInput() };
 			
 			std::cout << "num1: " << num1 << '\n';
-			std::cout << "num2: " << num2 << '\n';
+			// std::cout << "num2: " << num2 << '\n';
 			break;
 		}
 
 		// Number conversion
 		case 2:
 		{
-			printConversions();
+			printConversions();		// REMOVE: placeholder
 			break;
 		}
 		}

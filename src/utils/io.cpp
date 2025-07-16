@@ -1,9 +1,8 @@
 #include "io.h"
 #include "../CinErrorHandling.h"
-#include "../my-types.h"
 #include <string>
-#include <string_view>
 #include <iostream>
+#include <limits> // Required for std::numeric_limits
 
 // Display prompt, get number from user, check if number is valid, return number
 int getMenuChoice(int min, int max, std::string_view prompt)
@@ -14,9 +13,9 @@ int getMenuChoice(int min, int max, std::string_view prompt)
 		int number{};
 		std::cin >> number;
 
-		bool outOfBounds{ number < min || number > max };
+		bool outOfRange{ number < min || number > max };
 
-		if(CinError::clearUnextractedInput() || CinError::clearFailedExtraction() || outOfBounds)
+		if(CinError::clearUnextractedInput() || CinError::clearFailedExtraction() || outOfRange)
 		{
 			std::cout << "Invalid input. ";
 			continue;
@@ -27,51 +26,80 @@ int getMenuChoice(int min, int max, std::string_view prompt)
 }
 
 BitType validateHex(std::string_view input) {
-    // Validate hex digits after 0x
-    // Check range for 32-bit
-    // Return uint32_t
+	// Validate hex digits after 0x
+	// Check range for 32-bit
+	// Return uint32_t
 
-	std::cout << "Hex: " << input << '\n';
-    return 0;
+	std::cout << "Hex: " << input << '\n';		// REMOVE: for debugging
+	return 0;
 }
 
 BitType validateBinary(std::string_view input) {
-    // Validate binary digits after 0b
-    // Check range for 32-bit (max 32 digits)
-    // Return uint32_t
+	// Validate binary digits after 0b
+	// Check range for 32-bit (max 32 digits)
+	// Return uint32_t
 
-	std::cout << "Binary: " << input << '\n';
-    return 0;
+	std::cout << "Binary: " << input << '\n';	// REMOVE: for debugging
+	return 0;
 }
 
+// Validate only decimal numbers are entered, and is in BitType range
 BitType validateDecimal(std::string_view input) {
-    // Validate decimal digits only
-    // Check range for 32-bit
-    // Return uint32_t
+	for (char c : input)
+	{
+		if (!std::isdigit(c))
+			throw std::invalid_argument("Invalid decimal digit");
+	}
 
-	std::cout << "Decimal: " << input << '\n';
-    return 0;
+	// Check if in BitType range
+	const unsigned long temp{ std::stoul(std::string(input), nullptr, 10) };	// wrapping 'input' to make into a string
+	if (temp > std::numeric_limits<BitType>::max())
+		throw std::out_of_range("Number too large for bit-type limit");
+
+	return static_cast<BitType>(temp);
 }
 
-// Get string input, determine number type, call appropriate function to validate input
+// Get string input, determine number base, call appropriate function to validate input
 BitType getNumberInput()
 {
 	while(true)
 	{
-		std::cout << "Enter decimal, prefix 0x for hex or 0b for binary: ";
-		std::string input;
-		std::getline(std::cin >> std::ws, input);
+		try
+		{
+			std::cout << "Enter positive decimal, hex (prefix 0x), or binary (prefix 0b): ";
+			std::string input;
+			std::getline(std::cin >> std::ws, input);
 
-		// Hexadecimal
-		if (input.substr(0,2) == "0x" || input.substr(0,2) == "0X")
-			return validateHex(input);
+			// Check for empty string
+			if (CinError::clearFailedExtraction() || input.empty()) {
+				throw std::invalid_argument("Empty input");
+			}
+			
+			// Check if negative
+			const char firstChar{ input[0] };
+			const char secondChar{ input[1] };
+			if (firstChar == '-' && std::isdigit(secondChar))
+				throw std::out_of_range("Negative number is out of range");
 
-		// Binary
-		else if (input.substr(0,2) == "0b" || input.substr(0,2) == "0B")
-			return validateBinary(input);
+			// Hexadecimal validation and return
+			if (input.substr(0, 2) == "0x" || input.substr(0, 2) == "0X")
+				return validateHex(input);
 
-		// Decimal
-		else
-			return validateDecimal(input);
+			// Binary validation and return
+			else if (input.substr(0, 2) == "0b" || input.substr(0, 2) == "0B")
+				return validateBinary(input);
+
+			// Decimal validation and return
+			else
+				return validateDecimal(input);
+		}  	
+		catch (const std::out_of_range& error)
+		{
+			std::cout << "Error: " << error.what() << ". Try again.\n";
+		}
+		catch (const std::invalid_argument& error)
+		{
+			std::cout << "Error: " << error.what() << ". Try again.\n";
+		}
 	}
 }
