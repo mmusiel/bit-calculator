@@ -1,7 +1,6 @@
 #include "io.h"
 #include "../CinErrorHandling.h"
 #include <iostream>
-#include <limits> // Required for std::numeric_limits
 
 // Display prompt, get number from user, check if number is valid, return number
 int getMenuChoice(int min, int max, std::string_view prompt)
@@ -50,12 +49,19 @@ BitType validateDecimal(std::string_view input) {
 			throw std::invalid_argument("Invalid decimal digit");
 	}
 
-	// Check if in BitType range
-	const unsigned long temp{ std::stoul(std::string(input), nullptr, 10) };	// wrapping 'input' to make into a string
-	if (temp > std::numeric_limits<BitType>::max())
-		throw std::out_of_range("Number too large for bit-type limit");
-
-	return static_cast<BitType>(temp);
+	try
+	{
+		// Check if in BitType range
+		const unsigned long temp{ std::stoul(std::string(input), nullptr, 10) };	// wrapping 'input' to make into a string
+		if (temp > std::numeric_limits<BitType>::max())
+			throw std::out_of_range("");
+			
+		return static_cast<BitType>(temp);
+	}
+	catch(const std::out_of_range&)
+	{
+		throw std::out_of_range("Number too large for bit-type limit");		// this can catches the 'stoul' error
+	}
 }
 
 // Get string input, determine number base, call appropriate function to validate input
@@ -94,7 +100,7 @@ BitType getNumberInput(const std::string& prompt)
 		}  	
 		catch (const std::out_of_range& error)
 		{
-			std::cout << "Error: " << error.what() << ". Try again.\n";
+			std::cout << "Error: " << error.what() << ". Try again.\n";;
 		}
 		catch (const std::invalid_argument& error)
 		{
