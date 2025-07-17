@@ -3,6 +3,7 @@
 #include "utils/conversions.h"
 #include "utils/io.h"
 #include <iostream>
+#include <bitset>
 
 // Presents calculator menu, gets user choice, and calls calculator functions
 int main()
@@ -26,10 +27,11 @@ int main()
 		case 1:
 		{
 			const BitType num1{ getNumberInput() };
-			// const BitType num2{ getNumberInput() };
 			
-			std::cout << "num1: " << num1 << '\n';
-			// std::cout << "num2: " << num2 << '\n';
+			// REMOVE: for testing
+			std::cout << "Binary: " << std::bitset<BitTypeBits>{ num1 } << '\n';
+			std::cout << "Hexadecimal: " << std::hex << num1 << '\n';
+			std::cout << "Decimal: " << std::dec << num1 << '\n';
 			break;
 		}
 

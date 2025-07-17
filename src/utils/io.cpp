@@ -23,6 +23,23 @@ int getMenuChoice(int min, int max, std::string_view prompt)
 	}
 }
 
+BitType checkBitTypeRange(std::string_view input, int numBase)
+{
+	try
+	{
+		// Check if in BitType range
+		const unsigned long temp{ std::stoul(std::string(input), nullptr, numBase) };	// wrapping 'input' to make into a string
+		if (temp > std::numeric_limits<BitType>::max())
+			throw std::out_of_range("");
+			
+		return static_cast<BitType>(temp);
+	}	
+	catch(const std::out_of_range&)
+	{
+		throw std::out_of_range("Number too large for bit-type limit");		// this can catches the 'stoul' error
+	}
+}
+
 BitType validateHex(std::string_view input) {
 	// Validate hex digits after 0x
 	// Check range for 32-bit
@@ -33,35 +50,29 @@ BitType validateHex(std::string_view input) {
 }
 
 BitType validateBinary(std::string_view input) {
-	// Validate binary digits after 0b
-	// Check range for 32-bit (max 32 digits)
-	// Return uint32_t
+	if (input.length() <= 2)
+		throw std::invalid_argument("Incomplete binary number");
 
-	std::cout << "Binary: " << input << '\n';	// REMOVE: for debugging
-	return 0;
+	// Validate binary digits after 0b
+	for (size_t i{ 2 }; i < input.length(); ++i)
+	{
+		if (input[i] != '0' && input[i] != '1')
+			throw std::invalid_argument("Invalid binary digit");
+	}
+
+	return checkBitTypeRange(input.substr(2), 2);
 }
 
 // Validate only decimal numbers are entered, and is in BitType range
 BitType validateDecimal(std::string_view input) {
+	// Check for invalid decimal characters
 	for (char c : input)
 	{
 		if (!std::isdigit(c))
 			throw std::invalid_argument("Invalid decimal digit");
 	}
 
-	try
-	{
-		// Check if in BitType range
-		const unsigned long temp{ std::stoul(std::string(input), nullptr, 10) };	// wrapping 'input' to make into a string
-		if (temp > std::numeric_limits<BitType>::max())
-			throw std::out_of_range("");
-			
-		return static_cast<BitType>(temp);
-	}
-	catch(const std::out_of_range&)
-	{
-		throw std::out_of_range("Number too large for bit-type limit");		// this can catches the 'stoul' error
-	}
+	return checkBitTypeRange(input, 10);
 }
 
 // Get string input, determine number base, call appropriate function to validate input
@@ -97,7 +108,7 @@ BitType getNumberInput(const std::string& prompt)
 			// Decimal validation and return
 			else
 				return validateDecimal(input);
-		}  	
+		}
 		catch (const std::out_of_range& error)
 		{
 			std::cout << "Error: " << error.what() << ". Try again.\n";;

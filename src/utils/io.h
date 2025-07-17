@@ -6,6 +6,7 @@
 #include <string>
 
 int getMenuChoice(int min, int max, std::string_view prompt);
+BitType checkBitTypeRange(std::string_view input);
 BitType validateDecimal(std::string_view input);
 BitType validateHex(std::string_view input);
 BitType validateBinary(std::string_view input);
