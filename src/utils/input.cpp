@@ -1,4 +1,4 @@
-#include "io.h"
+#include "input.h"
 #include "../CinErrorHandling.h"
 #include <iostream>
 
@@ -23,7 +23,35 @@ int getMenuChoice(int min, int max, std::string_view prompt)
 	}
 }
 
-// Check if below max BitType range
+// Present menu of operations, get choice, return operation
+char getOperator()
+{
+	std::cout << "Choose bitwise operation:\n";
+    std::cout << "1) AND (&)\n";
+    std::cout << "2) OR (|)\n";
+    std::cout << "3) XOR (^)\n";
+    std::cout << "4) NOT (~)\n";
+    std::cout << "5) Left shift (<<)\n";
+    std::cout << "6) Right shift (>>)\n";
+
+    constexpr int min_MenuOption{ 1 };
+	constexpr int max_MenuOption{ 6 };
+
+    const int choice{ getMenuChoice(min_MenuOption, max_MenuOption, "Enter operation choice: ") };
+
+    switch(choice)
+    {
+    case 1: return '&';
+    case 2: return '|';
+    case 3: return '^';
+    case 4: return '~';
+ 	case 5: return '<';		// '<' to represent left shift
+    case 6: return '>';		// '>' to represent right shift
+    default: return '\0';	// Should never reach here
+    }
+}
+
+// Check if within BitType range
 BitType checkBitTypeRange(std::string_view input, int numBase)
 {
 	try
@@ -43,7 +71,7 @@ BitType checkBitTypeRange(std::string_view input, int numBase)
 
 BitType validateHex(std::string_view input) {
 	if (input.length() <= 2)
-		throw std::invalid_argument("Incompleted hex number");
+		throw std::invalid_argument("Incomplete hex number");
 
 	// Validate hex digits after 0x
 	for (size_t i = 2; i < input.length(); ++i)

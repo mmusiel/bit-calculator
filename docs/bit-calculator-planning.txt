@@ -31,10 +31,10 @@ Breaking problem down:
 	✅ - Get first number to perform operation on (decimal, hex, binary)
 		> positive numbers only
 	
-	- Get operation choice from user
+	✅ - Get operation choice from user
 		> AND (&), OR (|), XOR (^), NOT (~), left shift (<<), or right Shifts (>>)
 		
-	- Get second number to perform operation on (unless NOT is chosen)
+	✅ - Get second number to perform operation on (unless NOT is chosen)
 		
 	- Perform operation
 		> AND (&)

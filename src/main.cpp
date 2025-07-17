@@ -1,7 +1,7 @@
 #include "my-types.h"
 #include "utils/operation.h"
 #include "utils/conversions.h"
-#include "utils/io.h"
+#include "utils/input.h"
 #include <iostream>
 #include <bitset>
 
@@ -27,11 +27,19 @@ int main()
 		case 1:
 		{
 			const BitType num1{ getNumberInput() };
-			
+			const char op{ getOperator() };
+			const BitType num2{ getNumberInput() };
+
 			// REMOVE: for testing
 			std::cout << "Binary: " << std::bitset<BitTypeBits>{ num1 } << '\n';
 			std::cout << "Hexadecimal: " << std::hex << num1 << '\n';
 			std::cout << "Decimal: " << std::dec << num1 << '\n';
+
+			std::cout << "Operator: " << op << '\n';
+
+			std::cout << "Binary: " << std::bitset<BitTypeBits>{ num2 } << '\n';
+			std::cout << "Hexadecimal: " << std::hex << num2 << '\n';
+			std::cout << "Decimal: " << std::dec << num2 << '\n';
 			break;
 		}
 
