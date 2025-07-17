@@ -23,30 +23,36 @@ int getMenuChoice(int min, int max, std::string_view prompt)
 	}
 }
 
+// Check if below max BitType range
 BitType checkBitTypeRange(std::string_view input, int numBase)
 {
 	try
 	{
 		// Check if in BitType range
-		const unsigned long temp{ std::stoul(std::string(input), nullptr, numBase) };	// wrapping 'input' to make into a string
+		const unsigned long temp{ std::stoul(std::string(input), nullptr, numBase) };	// wrapping 'input' to convert to string
 		if (temp > std::numeric_limits<BitType>::max())
 			throw std::out_of_range("");
 			
 		return static_cast<BitType>(temp);
 	}	
-	catch(const std::out_of_range&)
+	catch(const std::out_of_range&)			// this catches the 'stoul' error
 	{
-		throw std::out_of_range("Number too large for bit-type limit");		// this can catches the 'stoul' error
+		throw std::out_of_range("Number too large for bit-type limit");
 	}
 }
 
 BitType validateHex(std::string_view input) {
-	// Validate hex digits after 0x
-	// Check range for 32-bit
-	// Return uint32_t
+	if (input.length() <= 2)
+		throw std::invalid_argument("Incompleted hex number");
 
-	std::cout << "Hex: " << input << '\n';		// REMOVE: for debugging
-	return 0;
+	// Validate hex digits after 0x
+	for (size_t i = 2; i < input.length(); ++i)
+	{
+		if(!std::isxdigit(input[i]))
+			throw std::invalid_argument("Invalid hex digit");
+	}
+
+	return checkBitTypeRange(input.substr(2), 16);
 }
 
 BitType validateBinary(std::string_view input) {
