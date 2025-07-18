@@ -1,6 +1,8 @@
 #include "io.h"
 #include "../CinErrorHandling.h"
+#include "../Math.h"
 #include <iostream>
+#include <bitset>
 
 // Display prompt, get number from user, check if number is valid, return number
 int getMenuChoice(int min, int max, std::string_view prompt)
@@ -166,4 +168,62 @@ NumberInput getNumberInputWithBase(const std::string& prompt)
 			std::cout << "Error: " << error.what() << ". Try again.\n";
 		}
 	}
+}
+
+void printBit(BitType number, BitType power)
+{
+    std::cout << ((number / power) % 2);
+}
+
+void printBinary(BitType number)
+{
+    constexpr BitType base{ 2 };
+    constexpr BitType exponent{ BitTypeBits };
+
+    BitType i{ exponent };
+
+    while (i != 0)
+    {
+        --i;
+
+        BitType power{Math::power(base, i)};
+
+        printBit(number, power);
+
+        if (i % 16 == 0)
+        {
+            std::cout << '\n';
+            continue;
+        }
+        if (i % 4 == 0)
+            std::cout << ' ';
+    }
+}
+
+void printFormattedNumber(NumberInput number)
+{
+	if (number.base == NumberBase::HEX)
+		std::cout << "0x" << std::hex << number.value;
+	else if (number.base == NumberBase::BINARY)
+		std::cout << "0b" << std::bitset<BitTypeBits>{ number.value };
+	else
+		std::cout << std::dec << number.value;
+
+}
+
+void printBitwiseResult(NumberInput num1, char op, NumberInput num2, BitType result)
+{
+	std::cout << "The result of ";
+
+	switch(op)
+	{
+	case '&': printFormattedNumber(num1); std::cout << " AND "; printFormattedNumber(num2); break;
+	case '|': printFormattedNumber(num1); std::cout <<  " OR "; printFormattedNumber(num2); break;
+	case '^': printFormattedNumber(num1); std::cout << " XOR "; printFormattedNumber(num2); break;
+	case '~': std::cout << "NOT "; printFormattedNumber(num1); break;
+	case '<': printFormattedNumber(num1); std::cout << " Left Shift "; printFormattedNumber(num2); break;
+	case '>': printFormattedNumber(num1); std::cout << " Right Shift "; printFormattedNumber(num2); break;
+	}
+
+	std::cout << "\nResult: " << result << '\n';
 }

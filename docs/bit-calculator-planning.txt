@@ -51,11 +51,17 @@ Breaking problem down:
 			result = operand >> numberOfBits;
 			
 	- Print calculation results to console in sentence form
-		> ex: "The result of 5 AND 3 is 1
+		> ex: "Result of 0x5 AND 3
+				decimal: 1
+				hex: 0x1
 				binary: 0001"
-		> ex: "The result of 5 left shift 1 is 10
+		> ex: "Result of 5 left shift 1
+				decimal: 10
+				hex: A
 				binary: 1010"
-		> ex: "The result of NOT 5 is 4294967290
+		> ex: "The result of NOT 0b0101
+				decimal: 4294967290
+				hex: FFFFFFFA
 				binary:	1111 1111 1111 1111
 						1111 1111 1111 1010"
 
