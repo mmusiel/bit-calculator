@@ -27,12 +27,12 @@ int getMenuChoice(int min, int max, std::string_view prompt)
 char getOperator()
 {
 	std::cout << "Choose bitwise operation:\n";
-    std::cout << "1) AND (&)\n";
-    std::cout << "2) OR (|)\n";
-    std::cout << "3) XOR (^)\n";
-    std::cout << "4) NOT (~)\n";
-    std::cout << "5) Left shift (<<)\n";
-    std::cout << "6) Right shift (>>)\n";
+    std::cout << "1) AND\n";
+    std::cout << "2) OR\n";
+    std::cout << "3) XOR\n";
+    std::cout << "4) NOT\n";
+    std::cout << "5) Left shift\n";
+    std::cout << "6) Right shift\n";
 
     constexpr int min_MenuOption{ 1 };
 	constexpr int max_MenuOption{ 6 };
@@ -110,7 +110,7 @@ BitType validateDecimal(std::string_view input) {
 }
 
 // Get string input, determine number base, call appropriate function to validate input
-BitType getNumberInput(const std::string& prompt)
+NumberInput getNumberInputWithBase(const std::string& prompt)
 {
 	while(true)
 	{
@@ -131,17 +131,31 @@ BitType getNumberInput(const std::string& prompt)
 			if (firstChar == '-' && std::isdigit(secondChar))
 				throw std::out_of_range("Negative number is out of range");
 
+			NumberInput result{};
+
 			// Hexadecimal validation and return
 			if (input.substr(0, 2) == "0x" || input.substr(0, 2) == "0X")
-				return validateHex(input);
+			{
+				result.value = validateHex(input);
+				result.base = NumberBase::HEX;
+				return result;
+			}
 
 			// Binary validation and return
 			else if (input.substr(0, 2) == "0b" || input.substr(0, 2) == "0B")
-				return validateBinary(input);
+			{
+				result.value = validateBinary(input);
+				result.base = NumberBase::BINARY;
+				return result;
+			}
 
 			// Decimal validation and return
 			else
-				return validateDecimal(input);
+			{
+				result.value = validateDecimal(input);
+				result.base = NumberBase::DECIMAL;
+				return result;
+			}
 		}
 		catch (const std::out_of_range& error)
 		{

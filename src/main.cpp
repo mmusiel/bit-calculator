@@ -26,20 +26,27 @@ int main()
 		// Bitwise Operation
 		case 1:
 		{
-			const BitType num1{ getNumberInput() };
+			const NumberInput num1{ getNumberInputWithBase() };
 			const char op{ getOperator() };
-			const BitType num2{ getNumberInput() };
 
 			// REMOVE: for testing
-			std::cout << "Binary: " << std::bitset<BitTypeBits>{ num1 } << '\n';
-			std::cout << "Hexadecimal: " << std::hex << num1 << '\n';
-			std::cout << "Decimal: " << std::dec << num1 << '\n';
-
+			if (num1.base == NumberBase::HEX)
+			{
+				std::cout << "Binary: " << std::bitset<BitTypeBits>{ num1.value } << '\n';
+				std::cout << "Decimal: " << std::dec << num1.value << '\n';
+			}
+			if (num1.base == NumberBase::BINARY)
+			{
+				std::cout << "Hex: " << std::hex << num1.value << '\n';
+				std::cout << "Decimal: " << std::dec << num1.value << '\n';
+			}
+			if (num1.base == NumberBase::DECIMAL)
+			{
+				std::cout << "Binary: " << std::bitset<BitTypeBits>{ num1.value } << '\n';
+				std::cout << "Hex: " << std::hex << num1.value << '\n';
+			}
 			std::cout << "Operator: " << op << '\n';
 
-			std::cout << "Binary: " << std::bitset<BitTypeBits>{ num2 } << '\n';
-			std::cout << "Hexadecimal: " << std::hex << num2 << '\n';
-			std::cout << "Decimal: " << std::dec << num2 << '\n';
 			break;
 		}
 
