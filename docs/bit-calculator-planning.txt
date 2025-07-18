@@ -59,7 +59,7 @@ Breaking problem down:
 				decimal: 10
 				hex: A
 				binary: 1010"
-		> ex: "The result of NOT 0b0101
+		> ex: "The result of NOT 0b0101'0000'1011
 				decimal: 4294967290
 				hex: FFFFFFFA
 				binary:	1111 1111 1111 1111

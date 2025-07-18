@@ -175,7 +175,7 @@ void printBit(BitType number, BitType power)
     std::cout << ((number / power) % 2);
 }
 
-void printBinary(BitType number)
+void printBinary(BitType number, bool /*oneLine*/) // TODO: add flag to print inline or not
 {
     constexpr BitType base{ 2 };
     constexpr BitType exponent{ BitTypeBits };
@@ -190,12 +190,15 @@ void printBinary(BitType number)
 
         printBit(number, power);
 
-        if (i % 16 == 0)
+        // if (i % 4 == 0 && oneLine) // print comma if on one line
+        // 	std::cout << '\'';
+
+        if (i % 16 == 0)	// Every 16 bits print a new line
         {
             std::cout << '\n';
             continue;
         }
-        if (i % 4 == 0)
+        if (i % 4 == 0)		// Every 4 bits print a space
             std::cout << ' ';
     }
 }
@@ -203,11 +206,11 @@ void printBinary(BitType number)
 void printFormattedNumber(NumberInput number)
 {
 	if (number.base == NumberBase::HEX)
-		std::cout << "0x" << std::hex << number.value;
+		std::cout << "0x" << std::hex << number.value;	
 	else if (number.base == NumberBase::BINARY)
-		std::cout << "0b" << std::bitset<BitTypeBits>{ number.value };
+		std::cout << "0b" << std::bitset<BitTypeBits>{ number.value };		// TODO: try to get this to print like 0b0100'1001'1111
 	else
-		std::cout << std::dec << number.value;
+		std::cout << std::dec << number.value;	
 
 }
 
