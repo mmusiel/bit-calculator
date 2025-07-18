@@ -1,9 +1,8 @@
 #include "my-types.h"
 #include "utils/operation.h"
 #include "utils/conversions.h"
-#include "utils/input.h"
+#include "utils/io.h"
 #include <iostream>
-#include <bitset>
 
 // Presents calculator menu, gets user choice, and calls calculator functions
 int main()
@@ -26,27 +25,7 @@ int main()
 		// Bitwise Operation
 		case 1:
 		{
-			const NumberInput num1{ getNumberInputWithBase() };
-			const char op{ getOperator() };
-
-			// REMOVE: for testing
-			if (num1.base == NumberBase::HEX)
-			{
-				std::cout << "Binary: " << std::bitset<BitTypeBits>{ num1.value } << '\n';
-				std::cout << "Decimal: " << std::dec << num1.value << '\n';
-			}
-			if (num1.base == NumberBase::BINARY)
-			{
-				std::cout << "Hex: " << std::hex << num1.value << '\n';
-				std::cout << "Decimal: " << std::dec << num1.value << '\n';
-			}
-			if (num1.base == NumberBase::DECIMAL)
-			{
-				std::cout << "Binary: " << std::bitset<BitTypeBits>{ num1.value } << '\n';
-				std::cout << "Hex: " << std::hex << num1.value << '\n';
-			}
-			std::cout << "Operator: " << op << '\n';
-
+			performBitwiseOperation();
 			break;
 		}
 
