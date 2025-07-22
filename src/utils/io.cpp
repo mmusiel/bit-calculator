@@ -54,7 +54,7 @@ char getOperator()
 }
 
 // Check if within BitType range
-BitType checkBitTypeRange(std::string_view input, int numBase)
+BitType checkBitTypeRange(std::string_view input, int numBase) //TOD): Could we add another paramater to pass in different bit types to check
 {
 	try
 	{
@@ -71,6 +71,7 @@ BitType checkBitTypeRange(std::string_view input, int numBase)
 	}
 }
 
+// Validate only Hex values are entered
 BitType validateHex(std::string_view input) {
 	if (input.length() <= 2)
 		throw std::invalid_argument("Incomplete hex number");
@@ -85,6 +86,7 @@ BitType validateHex(std::string_view input) {
 	return checkBitTypeRange(input.substr(2), 16);
 }
 
+// Validate only binary values are entered
 BitType validateBinary(std::string_view input) {
 	if (input.length() <= 2)
 		throw std::invalid_argument("Incomplete binary number");
@@ -178,27 +180,25 @@ void printBit(BitType number, BitType power)
 void printBinary(BitType number, bool /*oneLine*/) // TODO: add flag to print inline or not
 {
     constexpr BitType base{ 2 };
-    constexpr BitType exponent{ BitTypeBits };
+    BitType exponent{ BitTypeBits };
 
-    BitType i{ exponent };
-
-    while (i != 0)
+    while (exponent != 0)
     {
-        --i;
+        --exponent;
 
-        BitType power{Math::power(base, i)};
+        BitType power{Math::power(base, exponent)};
 
         printBit(number, power);
 
-        // if (i % 4 == 0 && oneLine) // print comma if on one line
+        // if (exponent % 4 == 0 && oneLine) // print comma if on one line
         // 	std::cout << '\'';
 
-        if (i % 16 == 0)	// Every 16 bits print a new line
+        if (exponent % 16 == 0)	// Every 16 bits print a new line
         {
             std::cout << '\n';
             continue;
         }
-        if (i % 4 == 0)		// Every 4 bits print a space
+        if (exponent % 4 == 0)		// Every 4 bits print a space
             std::cout << ' ';
     }
 }
