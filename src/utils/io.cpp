@@ -209,7 +209,7 @@ void printBinaryOneLine(BitType number)
     // Removes leading 0's by incrementing 4-bits at a time and checking if number is less than it's max value 
     for (BitType i{ exponent }; i <= std::numeric_limits<MaxBitType>::max(); i += 4)
     {
-    	BitType maxValue{Math::power(base, i)};
+    	const BitType maxValue{Math::power(base, i)};
 
     	if (number <= maxValue - 1)
     	{
@@ -264,5 +264,18 @@ void printBitwiseResult(NumberInput num1, char op, NumberInput num2, BitType res
 	case '>': printFormattedNumber(num1); std::cout << " Right Shift "; printFormattedNumber(num2); break;
 	}
 
-	std::cout << "\nResult: " << result << '\n';
+	std::cout << '\n';
+
+	std::cout << "Decimal: " << result << std::dec << result << '\n';
+	std::cout << "Hex: " << result << std::hex << result << '\n';
+	std::cout << "Binary:\n";
+	printBinaryMulitpleLines(result);
+
+	std::cout << std::dec;
+
+	// The result of NOT 0b0101'0000'1011
+	// Decimal:	4294967290
+	// Hex: 	FFFFFFFA
+	// Binary:	1111 1111 1111 1111
+	// 			1111 1111 1111 1010 // 3 tabs
 }
