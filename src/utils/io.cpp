@@ -2,7 +2,6 @@
 #include "../CinErrorHandling.h"
 #include "../Math.h"
 #include <iostream>
-#include <bitset>
 
 // Display prompt, get number from user, check if number is valid, return number
 int getMenuChoice(int min, int max, std::string_view prompt)
@@ -177,7 +176,8 @@ void printBit(BitType number, BitType power)
     std::cout << ((number / power) % 2);
 }
 
-void printBinary(BitType number, bool /*oneLine*/) // TODO: add flag to print inline or not
+// Print binary seperated by spaces and 16 bits per line
+void printBinaryMulitpleLines(BitType number)
 {
     constexpr BitType base{ 2 };
     BitType exponent{ BitTypeBits };
@@ -190,10 +190,7 @@ void printBinary(BitType number, bool /*oneLine*/) // TODO: add flag to print in
 
         printBit(number, power);
 
-        // if (exponent % 4 == 0 && oneLine) // print comma if on one line
-        // 	std::cout << '\'';
-
-        if (exponent % 16 == 0)	// Every 16 bits print a new line
+        if (exponent % 16 == 0)		// Every 16 bits print a new line
         {
             std::cout << '\n';
             continue;
@@ -203,14 +200,53 @@ void printBinary(BitType number, bool /*oneLine*/) // TODO: add flag to print in
     }
 }
 
+// Print binary with no leading 0's on one line seperated by apostrophes
+void printBinaryOneLine(BitType number)
+{
+    constexpr BitType base{ 2 };
+    BitType exponent{ 0 };
+
+    // Removes leading 0's by incrementing 4-bits at a time and checking if number is less than it's max value 
+    for (BitType i{ exponent }; i <= std::numeric_limits<MaxBitType>::max(); i += 4)
+    {
+    	BitType maxValue{Math::power(base, i)};
+
+    	if (number <= maxValue - 1)
+    	{
+    		exponent = i;
+    		break;
+    	}
+    }
+
+    while (exponent != 0)
+    {
+        --exponent;
+
+        BitType power{Math::power(base, exponent)};
+
+        printBit(number, power);
+
+        if (exponent % 4 == 0 && exponent != 0)		// Every 4 bits print an apostrophe
+            std::cout << '\'';
+    }
+}
+
 void printFormattedNumber(NumberInput number)
 {
+	// Print Hex
 	if (number.base == NumberBase::HEX)
 		std::cout << "0x" << std::hex << number.value;	
+
+	// Print Binary
 	else if (number.base == NumberBase::BINARY)
-		std::cout << "0b" << std::bitset<BitTypeBits>{ number.value };		// TODO: try to get this to print like 0b0100'1001'1111
+	{
+		std::cout << "0b";
+		printBinaryOneLine(number.value);
+	}
+
+		// Print Decimal
 	else
-		std::cout << std::dec << number.value;	
+		std::cout << std::dec << number.value;
 
 }
 
