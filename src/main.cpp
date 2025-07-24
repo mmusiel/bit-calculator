@@ -35,7 +35,6 @@ int main()
 			break;
 		}
 		}
-		std::cout << '\n';	// Padding for next loop
 	}
 	while(menuChoice != max_ExitOption);
 

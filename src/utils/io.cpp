@@ -2,6 +2,7 @@
 #include "../CinErrorHandling.h"
 #include "../Math.h"
 #include <iostream>
+#include <type_traits> 
 
 // Display prompt, get number from user, check if number is valid, return number
 int getMenuChoice(int min, int max, std::string_view prompt)
@@ -53,7 +54,7 @@ char getOperator()
 }
 
 // Check if within BitType range
-BitType checkBitTypeRange(std::string_view input, int numBase) //TOD): Could we add another paramater to pass in different bit types to check
+BitType checkBitTypeRange(std::string_view input, int numBase)
 {
 	try
 	{
@@ -176,7 +177,9 @@ void printBit(BitType number, BitType power)
     std::cout << ((number / power) % 2);
 }
 
-// Print binary seperated by spaces and 16 bits per line
+// Print binary seperated by spaces at every 4-bits and 16-bits add new line
+// Ex:	0000 1111 1010 1111
+//		1111 0011 0000 1010
 void printBinaryMulitpleLines(BitType number)
 {
     constexpr BitType base{ 2 };
@@ -190,17 +193,18 @@ void printBinaryMulitpleLines(BitType number)
 
         printBit(number, power);
 
-        if (exponent % 16 == 0)		// Every 16 bits print a new line
+        if (exponent % 16 == 0)		// Every 16-bits print a new line
         {
             std::cout << '\n';
             continue;
         }
-        if (exponent % 4 == 0)		// Every 4 bits print a space
+        if (exponent % 4 == 0)		// Every 4-bits print a space
             std::cout << ' ';
     }
 }
 
 // Print binary with no leading 0's on one line seperated by apostrophes
+// Ex:	0b0101'0000'1011
 void printBinaryOneLine(BitType number)
 {
     constexpr BitType base{ 2 };
@@ -226,27 +230,39 @@ void printBinaryOneLine(BitType number)
 
         printBit(number, power);
 
-        if (exponent % 4 == 0 && exponent != 0)		// Every 4 bits print an apostrophe
+        if (exponent % 4 == 0 && exponent != 0)		// Every 4-bits print a apostrophe
             std::cout << '\'';
     }
 }
 
-void printFormattedNumber(NumberInput number)
+void printFormattedNumber(BitType num, NumberBase base)
 {
 	// Print Hex
-	if (number.base == NumberBase::HEX)
-		std::cout << "0x" << std::hex << number.value;	
-
-	// Print Binary
-	else if (number.base == NumberBase::BINARY)
+	if (base == NumberBase::HEX)
 	{
-		std::cout << "0b";
-		printBinaryOneLine(number.value);
+		std::cout << "0x" << std::hex;
+		if constexpr (std::is_same_v<BitType, uint8_t>)
+			std::cout << static_cast<int>(num);		// Cast as int so not treated as Char
+		else
+			std::cout << num;
 	}
 
-		// Print Decimal
+	// Print Binary
+	else if (base == NumberBase::BINARY)
+	{
+		std::cout << "0b";
+		printBinaryOneLine(num);
+	}
+
+	// Print Decimal
 	else
-		std::cout << std::dec << number.value;
+	{
+		std::cout << std::dec;
+		if constexpr (std::is_same_v<BitType, uint8_t>)
+			std::cout << static_cast<int>(num);		// Cast as int so not treated as Char
+		else
+			std::cout << num;
+	}
 
 }
 
@@ -256,26 +272,17 @@ void printBitwiseResult(NumberInput num1, char op, NumberInput num2, BitType res
 
 	switch(op)
 	{
-	case '&': printFormattedNumber(num1); std::cout << " AND "; printFormattedNumber(num2); break;
-	case '|': printFormattedNumber(num1); std::cout <<  " OR "; printFormattedNumber(num2); break;
-	case '^': printFormattedNumber(num1); std::cout << " XOR "; printFormattedNumber(num2); break;
-	case '~': std::cout << "NOT "; printFormattedNumber(num1); break;
-	case '<': printFormattedNumber(num1); std::cout << " Left Shift "; printFormattedNumber(num2); break;
-	case '>': printFormattedNumber(num1); std::cout << " Right Shift "; printFormattedNumber(num2); break;
+	case '&': printFormattedNumber(num1.value, num1.base); std::cout << " AND "; printFormattedNumber(num2.value, num2.base); break;
+	case '|': printFormattedNumber(num1.value, num1.base); std::cout <<  " OR "; printFormattedNumber(num2.value, num2.base); break;
+	case '^': printFormattedNumber(num1.value, num1.base); std::cout << " XOR "; printFormattedNumber(num2.value, num2.base); break;
+	case '~': std::cout << "NOT "; printFormattedNumber(num1.value, num1.base); break;
+	case '<': printFormattedNumber(num1.value, num1.base); std::cout << " Left Shift "; printFormattedNumber(num2.value, num2.base); break;
+	case '>': printFormattedNumber(num1.value, num1.base); std::cout << " Right Shift "; printFormattedNumber(num2.value, num2.base); break;
 	}
 
 	std::cout << '\n';
 
-	std::cout << "Decimal: " << result << std::dec << result << '\n';
-	std::cout << "Hex: " << result << std::hex << result << '\n';
-	std::cout << "Binary:\n";
-	printBinaryMulitpleLines(result);
-
-	std::cout << std::dec;
-
-	// The result of NOT 0b0101'0000'1011
-	// Decimal:	4294967290
-	// Hex: 	FFFFFFFA
-	// Binary:	1111 1111 1111 1111
-	// 			1111 1111 1111 1010 // 3 tabs
+	std::cout << "Decimal: ";	printFormattedNumber(result, NumberBase::DECIMAL);	std::cout << '\n';
+	std::cout << "Hex: "; 		printFormattedNumber(result, NumberBase::HEX);		std::cout << '\n';	
+	std::cout << "Binary:\n";	printBinaryMulitpleLines(result); 					std::cout << '\n';	
 }
