@@ -245,6 +245,8 @@ void printFormattedNumber(BitType num, NumberBase base)
 			std::cout << static_cast<int>(num);		// Cast as int so not treated as Char
 		else
 			std::cout << num;
+
+		std::cout << std::dec;		// set cout back to decimal output
 	}
 
 	// Print Binary
@@ -263,12 +265,11 @@ void printFormattedNumber(BitType num, NumberBase base)
 		else
 			std::cout << num;
 	}
-
 }
 
 void printBitwiseResult(NumberInput num1, char op, NumberInput num2, BitType result)
 {
-	std::cout << "The result of ";
+	std::cout << "The " << BitTypeBits <<"-bit result of ";
 
 	switch(op)
 	{

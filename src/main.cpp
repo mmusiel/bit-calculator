@@ -13,6 +13,7 @@ int main()
 
 	do
 	{
+		std::cout << BitTypeBits << "-bit calculator menu:\n";
 		std::cout << "1) Bitwise operation (AND, OR, XOR, NOT, or Left/Right Shifts)\n";
 		std::cout << "2) Number conversion (Decimal, Binary, Hexadecimal)\n";
 		std::cout << "3) Exit\n";
