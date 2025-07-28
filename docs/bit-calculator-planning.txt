@@ -106,3 +106,7 @@ Get choice of operation or conversion
 Ask to continue with another operation
 	> Y: continue calculator loop
 	> N: end program
+
+****************
+Moving forward, next goal is to enable changing the Bit Type size of the calculator real time (uint8_t, uint16_t, uint32_t, uint64_t).
+Will likely need to use classes perhaps?

@@ -211,11 +211,11 @@ void printBinaryOneLine(BitType number)
     BitType exponent{ 0 };
 
     // Removes leading 0's by incrementing 4-bits at a time and checking if number is less than it's max value 
-    for (BitType i{ exponent }; i <= std::numeric_limits<MaxBitType>::max(); i += 4)
+    for (BitType i{ exponent }; i <= BitTypeBits; i += 4)
     {
-    	const BitType maxValue{Math::power(base, i)};
+    	const BitType maxValue{ static_cast<BitType>(Math::power(base, i) - 1) };	// Minus 1 so it doesn't cause overflow
 
-    	if (number <= maxValue - 1)
+    	if (number <= maxValue)
     	{
     		exponent = i;
     		break;
