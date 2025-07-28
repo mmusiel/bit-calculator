@@ -36,7 +36,7 @@ Breaking problem down:
 		
 	✅ - Get second number to perform operation on (unless NOT is chosen)
 		
-	- Perform operation
+	✅ Perform operation
 		> AND (&)
 			result = operand1 & operand2;
 		> OR (|)
@@ -50,7 +50,7 @@ Breaking problem down:
 		> Right Shift (>>)
 			result = operand >> numberOfBits;
 			
-	- Print calculation results to console in sentence form
+	✅ Print calculation results to console in sentence form
 		> ex: "Result of 0x5 AND 3
 				decimal: 1
 				hex: 0x1
