@@ -53,6 +53,64 @@ char getOperator()
     }
 }
 
+char getConversionChoice(NumberInput num)
+{
+	std::cout << "Choose conversion: \n";
+
+	constexpr int min_MenuOption{ 1 };
+	constexpr int max_MenuOption{ 2 };
+
+	// Original number is Hex
+	if (num.base == NumberBase::HEX)
+	{
+		std::cout << "1) Binary\n";
+		std::cout << "2) Decimal\n";
+
+		const int choice{ getMenuChoice(min_MenuOption, max_MenuOption, "Enter conversion choice: ") };
+
+		switch(choice)
+		{
+		case 1: return 'b';
+		case 2: return 'd';
+		default: return '\0';	// Should never reach here
+		}
+	}
+
+	// Original number is Binary
+	else if (num.base == NumberBase::BINARY)
+	{
+		std::cout << "1) Hex\n";
+		std::cout << "2) Decimal\n";
+
+		const int choice{ getMenuChoice(min_MenuOption, max_MenuOption, "Enter conversion choice: ") };
+
+		switch(choice)
+		{
+		case 1: return 'h';
+		case 2: return 'd';
+		default: return '\0';	// Should never reach here
+		}
+	}
+
+	// Original number is Decimal
+	else if (num.base == NumberBase::DECIMAL)
+	{
+		std::cout << "1) Hex\n";
+		std::cout << "2) Binary\n";
+
+		const int choice{ getMenuChoice(min_MenuOption, max_MenuOption, "Enter conversion choice: ") };
+
+		switch(choice)
+		{
+		case 1: return 'h';
+		case 2: return 'b';
+		default: return '\0';	// Should never reach here
+		}
+	}
+
+	else return '\0';	// Should never reach here	
+}
+
 // Check if within BitType range
 BitType checkBitTypeRange(std::string_view input, int numBase)
 {

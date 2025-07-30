@@ -74,12 +74,12 @@ Breaking problem down:
 			2) Binary
 			3) Hexadecimal
 	- Perform conversion
-		> decimal to binary
 		> decimal to hex
-		> binary to decimal
+		> decimal to binary
 		> binary to hex
-		> hex to decimal
+		> binary to decimal
 		> hex to binary
+		> hex to decimal
 	- Print result
 		> ex: "100 decimal is 0110 0100 in binary."
 		> ex: "9EA2 hexadecimal is 40610 in decimal."

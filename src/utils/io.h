@@ -7,6 +7,7 @@
 
 int getMenuChoice(int min, int max, std::string_view prompt);
 char getOperator();
+char getConversionChoice(NumberInput num);
 BitType checkBitTypeRange(std::string_view input, int numBase);
 BitType validateHex(std::string_view input);
 BitType validateBinary(std::string_view input);

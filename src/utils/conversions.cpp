@@ -3,37 +3,29 @@
 #include "io.h"
 #include <iostream>
 
-// REMOVE: placeholder function
 void performConversion()
 {
 	const NumberInput num{ getNumberInputWithBase("Enter positive decimal, hex (prefix 0x), or binary (prefix 0b) to convert: ") };
+	char conversionLetter{ getConversionChoice(num) };
 
-	std::cout << "Choose conversion: \n";
+	std::cout << "Conversion Char: " << conversionLetter << '\n';	// REMOVE: for debugging
 
-	int menuOption{ 0 };
+	// // Print Hex result
+	// if ((num.base == NumberBase::DECIMAL && menuOption == 1) || (num.base == NumberBase::BINARY && menuOption == 1) )
+	// {
+	// 	std::cout << "Hex: "; printFormattedNumber(num.value, NumberBase::HEX); std::cout << '\n';
+	// }
 
-	if (num.base != NumberBase::HEX)
-	{	
-		menuOption += 1;
-		std::cout << menuOption << ") Hexadecimal\n";
-	}
-	if (num.base != NumberBase::BINARY)
-	{
-		menuOption += 1;
-		std::cout << menuOption << ") Binary\n";
-	}
+	// // Print Binary
+	// else if ((num.base == NumberBase::DECIMAL && menuOption == 2) || (num.base == NumberBase::HEX && menuOption == 1) )
+	// {
+	// 	std::cout << "Binary: "; printFormattedNumber(num.value, NumberBase::BINARY); std::cout << '\n';
+	// }
 
-	if (num.base != NumberBase::DECIMAL)
-	{	
-		menuOption += 1;
-		std::cout << menuOption << ") Decimal\n";
-	}
-
-	constexpr int min_MenuOption{ 1 };
-	constexpr int max_MenuOption{ 2 };
-
-	const int menuChoice{ getMenuChoice(min_MenuOption, max_MenuOption, "Enter conversion choice: ") };
-
-	std::cout << "MENU CHOICE: " << menuChoice << '\n';		// REMOVE: for testing
+	// // Print Decimal
+	// else
+	// {
+	// 	std::cout << "Decimal: "; printFormattedNumber(num.value, NumberBase::DECIMAL); std::cout << '\n';
+	// }
 
 }
