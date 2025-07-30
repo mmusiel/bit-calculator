@@ -9,7 +9,7 @@ CXXFLAGS_RELEASE = -std=c++20 -O2 -DNDEBUG -pedantic-errors
 CXXFLAGS = $(CXXFLAGS_DEBUG)
 
 # Object files variable (add new files here, only if a .cpp)
-OBJS = src/main.o src/utils/operation.o src/utils/io.o src/utils/conversions.o
+OBJS = src/main.o src/utils/operation.o src/utils/input.o src/utils/output.o src/utils/conversions.o
 
 .PHONY: all run clean
 
@@ -25,7 +25,8 @@ main.bin: $(OBJS)
 
 # Dependencies (add new files here, only if a .cpp, ex:"io/io.o: io/io.h")
 src/utils/operation.o: src/utils/operation.h
-src/utils/io.o: src/utils/io.h
+src/utils/input.o: src/utils/input.h
+src/utils/outpu.o: src/utils/output.h
 src/utils/conversions.o: src/utils/conversions.h
 
 run: main.bin

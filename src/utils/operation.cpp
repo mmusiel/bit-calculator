@@ -1,6 +1,7 @@
 #include "operation.h"
 #include "../my-types.h"
-#include "io.h"
+#include "input.h"
+#include "output.h"
 
 void performBitwiseOperation()
 {
