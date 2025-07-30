@@ -23,18 +23,10 @@ int main()
 		switch(menuChoice)
 		{
 		// Bitwise Operation
-		case 1:
-		{
-			performBitwiseOperation();
-			break;
-		}
+		case 1: performBitwiseOperation(); break;
 
 		// Number conversion
-		case 2:
-		{
-			printConversions();		// REMOVE: placeholder
-			break;
-		}
+		case 2: performConversion(); break;
 		}
 	}
 	while(menuChoice != max_ExitOption);

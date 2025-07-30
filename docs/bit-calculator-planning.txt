@@ -66,17 +66,13 @@ Breaking problem down:
 						1111 1111 1111 1010"
 
 2) Perform number system conversion
-	- Display conversion choices
-		Convert from:
-			1) Decimal
-			2) Binary
-			3) Hexadecimal
-		Convert #Make this smart, only show relevant choices. From Decimal to Binary or Hex only.
-			1) Decimal
-			2) Binary
-			3) Hexadecimal
-	- Get conversion choice from user
 	- Get number to convert
+		> print "Enter positive decimal, hex (prefix 0x), or binary (prefix 0b) to convert: "
+	- Get conversion choice from user
+		Make this smart, only show relevant choices (e.g. From Decimal to Binary or Hex only).
+			1) Decimal
+			2) Binary
+			3) Hexadecimal
 	- Perform conversion
 		> decimal to binary
 		> decimal to hex
@@ -87,6 +83,7 @@ Breaking problem down:
 	- Print result
 		> ex: "100 decimal is 0110 0100 in binary."
 		> ex: "9EA2 hexadecimal is 40610 in decimal."
+
 
 Sequence of events:
 Display calculator menu

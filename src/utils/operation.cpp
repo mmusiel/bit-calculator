@@ -1,4 +1,5 @@
 #include "operation.h"
+#include "../my-types.h"
 #include "io.h"
 
 void performBitwiseOperation()
