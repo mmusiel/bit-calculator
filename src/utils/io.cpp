@@ -345,3 +345,16 @@ void printBitwiseResult(NumberInput num1, char op, NumberInput num2, BitType res
 	std::cout << "Hex: "; 		printFormattedNumber(result, NumberBase::HEX);		std::cout << '\n';	
 	std::cout << "Binary:\n";	printBinaryMulitpleLines(result); 					std::cout << '\n';	
 }
+
+void printConversionResult(NumberInput num, char conversionLetter)
+{
+	printFormattedNumber(num.value, num.base);
+	std::cout << " is ";
+
+	switch(conversionLetter)
+	{
+	case 'h': printFormattedNumber(num.value, NumberBase::HEX); std::cout << " in hex\n"; break;
+	case 'b': printFormattedNumber(num.value, NumberBase::BINARY); std::cout << " in binary\n"; break;
+	case 'd': printFormattedNumber(num.value, NumberBase::DECIMAL); std::cout << " in decimal\n"; break;
+	}
+}
