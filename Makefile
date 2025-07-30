@@ -26,7 +26,7 @@ main.bin: $(OBJS)
 # Dependencies (add new files here, only if a .cpp, ex:"io/io.o: io/io.h")
 src/utils/operation.o: src/utils/operation.h
 src/utils/input.o: src/utils/input.h
-src/utils/outpu.o: src/utils/output.h
+src/utils/output.o: src/utils/output.h
 src/utils/conversions.o: src/utils/conversions.h
 
 run: main.bin
